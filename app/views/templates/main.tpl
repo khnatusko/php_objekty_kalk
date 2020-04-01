@@ -72,7 +72,7 @@
                                                                             <a href="#" class="icon brands alt fa-facebook"></a>
                                                                             <a href="https://github.com/khnatusko" class="icon brands alt fa-github"><span class="label">GitHub</span></a>
                                                                             </p>
-                                                                            <p>&copy; Untitled.</p> <p>Design: <a href="http://html5up.net">HTML5 UP</a></p>
+                                                                            <p>&copy; Autor: Krzysztof Hnatuśko.</p> <p>Design: <a href="http://html5up.net">HTML5 UP</a></p>
                                                                                     
                                                                         </div>
                                                          </section>

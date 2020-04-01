@@ -1,30 +1,31 @@
-<?php
+<?php   
 
 
-require_once $conf->root_path.'/lib/smarty/Smarty.class.php';
-require_once $conf->root_path.'/lib/Messages.class.php';
-require_once $conf->root_path.'/app/calc/KalkForm.class.php';
-require_once $conf->root_path.'/app/calc/KalkResult.class.php';
+namespace app\controllers;
+
+
+use app\forms\KalkForm;
+use app\transfer\KalkResult;
 
 
 class KalkCtrl {
     
-    private $msgs;
+  
     private $vat;
     private $resultx;
     private $resulty;
     
     public function __construct() {
-        $this->msgs = new Messages();
+
         $this->vat = new KalkForm();
         $this->resultx = new KalkResult();
         $this->resulty = new KalkResult(); 
     }
     
     public function getParams(){
-        $this->vat->x = isset($_REQUEST ['x']) ? $_REQUEST ['x'] : null;
-        $this->vat->y = isset($_REQUEST ['y']) ? $_REQUEST ['y'] : null;
-        $this->vat->proc = isset($_REQUEST ['proc']) ? $_REQUEST ['proc'] : null;
+        $this->vat->x = getFromRequest('x');
+        $this->vat->y = getFromRequest('y');
+        $this->vat->proc = getFromRequest('proc');
     }
     
     public function validate(){
@@ -33,13 +34,13 @@ class KalkCtrl {
         }
         
         if ($this->vat->x == "" && $this->vat->y == ""){
-            $this->msgs->addError('Nie podano liczby netto/brutto');
+            getMessages()->addError('Nie podano liczby netto/brutto');
         }
       
     
-        if (! $this->msgs->isError())
+        if (! getMessages()->isError())
             
-        return ! $this->msgs->isError();    
+        return ! getMessages()->isError();    
     }
     
     public function process(){
@@ -49,7 +50,7 @@ class KalkCtrl {
         if($this->validate()){
             $this->vat->x = doubleval($this->vat->x);
             $this->vat->y = doubleval($this->vat->y);
-            $this->msgs->addInfo('Parametry poprawne.');
+            getMessages()->addInfo('Parametry poprawne.');
             
             switch ($this->vat->proc){
                 case 'trzy':
@@ -77,27 +78,24 @@ class KalkCtrl {
                     $this->resulty->resulty = $this->vat->y / 1.23;
                     break;    
             }
-            $this->msgs->addInfo('Wykonano obliczenia.');
+            getMessages()->addInfo('Wykonano obliczenia.');
         }
     $this->generateView();        
             
     }
         
       public function generateView(){
-          global $conf;
+   
+
           
-          $smarty = new Smarty();
-          $smarty->assign('conf',$conf);
+          getSmarty()->assign('page_title','Kalkulator');
+          getSmarty()->assign('page_description','VATOWY');
+          getSmarty()->assign('page_header','Kalkulator_VAT');
           
-          $smarty->assign('page_title','Kalkulator');
-          $smarty->assign('page_description','VATOWY');
-          $smarty->assign('page_header','Kalkulator_VAT');
+          getSmarty()->assign('vat',$this->vat);
+          getSmarty()->assign('resx',$this->resultx);
+          getSmarty()->assign('resy',$this->resulty);
           
-          $smarty->assign('msgs',$this->msgs);
-          $smarty->assign('vat',$this->vat);
-          $smarty->assign('resx',$this->resultx);
-          $smarty->assign('resy',$this->resulty);
-          
-          $smarty->display($conf->root_path.'/app/calc/Kalk.tpl');    
+          getSmarty()->display('Kalk.tpl');    
     }
 }
