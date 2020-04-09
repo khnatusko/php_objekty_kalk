@@ -50,7 +50,8 @@
         
 	</p>
 {/if}
+{if isset($resx->resultx)}
 <p>Gratulacje, udało Ci się obliczyć wartość VAT!</p>
 <center><img src="{$conf->app_root}/images/pepe.png" alt="Gratulacje, udało Ci się obliczyć wartość VAT"></center>
-
+{/if}
 {/block}
