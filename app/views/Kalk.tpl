@@ -3,9 +3,8 @@
 {block name=footer}{/block}
 
 {block name=content}
-
-   
-	<form action="{$conf->action_root}calcCompute" method="post">
+    
+	<form action="{$conf->action_url}calcCompute" method="post">
 
 <fieldset>
 	<center>
@@ -28,30 +27,13 @@
 	<button type="submit" class="btn btn-dark">Oblicz</button></center>
 </fieldset>
 </form>	
-</div>
-{* wyświeltenie listy błędów, jeśli istnieją *}
-{if $msgs->isError()}
-		<h4>Wystąpiły błędy: </h4>
-		<ol class="err">
-		{foreach  $msgs->getErrors() as $err}
-		{strip}
-			<li>{$err}</li>
-		{/strip}
-		{/foreach}
-		</ol>
-	{/if}
 
-{* wyświeltenie listy informacji, jeśli istnieją *}
-{if $msgs->isInfo()} 
-		<h4>Informacje: </h4>
-		<ol class="inf">
-		{foreach  $msgs->getInfos() as $inf}
-		{strip}
-			<li>{$inf}</li>
-		{/strip}
-		{/foreach}
-		</ol>
-	{/if}
+<div>
+	<a href="{$conf->action_url}logout">Wyloguj</a>
+        
+</div>
+
+{include file='messages.tpl'}
 
 <center>
 {if isset($resx->resultx)}
@@ -59,13 +41,16 @@
 	<p class="res">
 	{$resx->resultx}
 	</p>
+        
 {/if}
 {if isset($resy->resulty)}
 	<h4>Wynik brutto</h4>
 	<p class="res">
 	{$resy->resulty}
+        
 	</p>
 {/if}
-
+<p>Gratulacje, udało Ci się obliczyć wartość VAT!</p>
+<center><img src="{$conf->app_root}/images/pepe.png" alt="Gratulacje, udało Ci się obliczyć wartość VAT"></center>
 
 {/block}

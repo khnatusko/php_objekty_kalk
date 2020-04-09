@@ -43,7 +43,7 @@ class KalkCtrl {
         return ! getMessages()->isError();    
     }
     
-    public function process(){
+    public function action_calcCompute(){
         
         $this->getParams();
         
@@ -58,8 +58,13 @@ class KalkCtrl {
                     $this->resulty->resulty = $this->vat->y / 1.03;
                     break;
                 case 'piec':
+                    if(inRole('admin')){
                     $this->resultx->resultx = $this->vat->x + ($this->vat->x * 0.05);
                     $this->resulty->resulty = $this->vat->y / 1.05;
+                    } 
+                    else {
+                    getMessages()->addError("Tylko administrator może wykonać tę operację.");
+                    }
                     break;
                 case 'siedem':
                     $this->resultx->resultx = $this->vat->x + ($this->vat->x * 0.07);
@@ -84,9 +89,15 @@ class KalkCtrl {
             
     }
         
+        public function action_calcShow(){
+		getMessages()->addInfo('Witaj w kalkulatorze');
+		$this->generateView();
+	}
+        
       public function generateView(){
-   
-
+          
+          global $user;
+          getSmarty()->assign('user',unserialize($_SESSION['user']));
           
           getSmarty()->assign('page_title','Kalkulator');
           getSmarty()->assign('page_description','VATOWY');
