@@ -1,4 +1,4 @@
-{extends file="main.tpl"}
+{extends file="main2.tpl"}
 
 {block name=content}
     <form action="{$conf->action_url}login" method="post">

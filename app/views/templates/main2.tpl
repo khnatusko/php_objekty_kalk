@@ -23,14 +23,9 @@
 					<!-- Nav -->
 						<nav id="nav">
                                                     <ul>
-                                                        <li>
-                                                            <a href="{$conf->action_url}logout">Wyloguj</a>
-                                                        </li>
+                                                       
                                                          <li>
                                                             <a href="#app_content">Kalkulator</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="{$conf->action_url}history">Historia obliczeń</a>
                                                         </li>
                                                     </ul>
 						</nav>

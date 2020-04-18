@@ -28,10 +28,7 @@
 </fieldset>
 </form>	
 
-<div>
-	<a href="{$conf->action_url}logout">Wyloguj</a>
-        
-</div>
+
 
 {include file='messages.tpl'}
 

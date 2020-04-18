@@ -84,6 +84,19 @@ class KalkCtrl {
                     break;    
             }
             getMessages()->addInfo('Wykonano obliczenia.');
+            try{
+                
+                getDB()->insert("vat", [
+                    "netto" => $this->vat->x,
+                    "brutto" => $this->vat->y,
+                    "procenty" => $this->vat->proc,
+                    "wyn_brutto" => $this->resulty->resulty,
+                    "wyn_netto" => $this->resultx->resultx,                                    
+                ]);          
+            } 
+            catch (\PDOException $ex) {
+                getMessages()->addError("Błąd bazy danych: ".$ex->getMessage());
+            }
         }
     $this->generateView();        
             
